@@ -1,0 +1,10 @@
+header {
+    background-color: white;
+}
+body {
+    background-color: white;
+}
+.new{
+    border: 2px solid black;
+    height: 100px;
+}
