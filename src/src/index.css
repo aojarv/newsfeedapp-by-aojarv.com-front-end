@@ -1,0 +1,21 @@
+header {
+    background-color: lightgray;
+    height: 100px;
+  }
+  body {
+    background-color: white;
+  }
+  footer{
+    background-color: lightgray;
+    height: 100px;
+  }
+  .new{
+    border: 2px solid black;
+    height: 200px;
+    font-family: 'Roboto', sans-serif;
+  }
+  .article{
+    border: 2px solid black;
+    height: 200px;
+    font-family: 'Roboto', sans-serif;
+  }
