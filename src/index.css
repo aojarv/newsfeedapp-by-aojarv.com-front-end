@@ -1,11 +1,16 @@
 header {
-    background-color: white;
+  background-color: red;
+  height: 100px;
 }
 body {
-    background-color: white;
+  background-color: white;
+}
+footer{
+  background-color: red;
+  height: 100px;
 }
 .new{
-    border: 2px solid black;
-    height: 100px;
-    font-family: 'Roboto', sans-serif;
+  border: 2px solid black;
+  height: 200px;
+  font-family: 'Roboto', sans-serif;
 }
