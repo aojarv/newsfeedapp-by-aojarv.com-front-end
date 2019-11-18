@@ -2,14 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 
 const TimesWire = () => {
-
-  const [data, setData] = useState("")
   const [news, setNews] = useState([])
-
-  const getData = () => {
-      console.log(data)
-      console.log(news)
-  }
 
   useEffect(() => {
       const URL = `https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=xGsgXlF7e8OzGsfLXyAWazfAZBhG4IA3`
@@ -23,11 +16,8 @@ const TimesWire = () => {
             }
             arr.push(singleObject)
           }
-          
           setNews(arr)
-          setData(response.data.results)
       })
-      
   }, [])
 
   const New = (props) => {
@@ -50,7 +40,7 @@ const TimesWire = () => {
     else{
       return(
         <>
-        {news.map(item => <New title={item.title} abstract={item.abstract}/>)}
+          {news.map(item => <New title={item.title} abstract={item.abstract}/>)}
         </>
       )
     }
@@ -63,10 +53,11 @@ const TimesWire = () => {
       </header>
       <body>
         <Map/>
-        <button onClick={getData}>xd</button>
       </body>
       <footer>
-
+        <h1>
+          News provided by The New York Times
+        </h1>
       </footer>
       </>
   )

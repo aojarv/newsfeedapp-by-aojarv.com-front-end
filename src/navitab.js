@@ -4,10 +4,11 @@ import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
 import TimesWire from './timeswire'
 import TopStories from './topstories'
+import Mostpopular from './mostpopular'
 
 const Navitab = () => {
   const [value, setValue] = useState(0)
-  const handleChange = (event, newValue) => {
+  const handleChange = (newValue) => {
     setValue(newValue)
   }
   return(
@@ -16,8 +17,9 @@ const Navitab = () => {
     <Tabs value={value}
     indicatorColor="primary"
     onChange={handleChange}>
-      <Tab label="TimesWire" component={Link} to="/" />
-      <Tab label="TopStories" component={Link} to="/info" />
+      <Tab label="Times Wire" component={Link} to="/" />
+      <Tab label="Search by section" component={Link} to="/searchbysection" />
+      <Tab label="Most Popular" component={Link} to="/mostsharedandviewed" />
     </Tabs>
 
     <Switch>
@@ -26,8 +28,12 @@ const Navitab = () => {
       component={TimesWire}/>
 
       <Route
-      exact path="/info"
+      exact path="/searchbysection"
       component={TopStories}/>
+
+      <Route
+      exact path="/mostsharedandviewed"
+      component={Mostpopular}/>
     </Switch>
     </Router>
     </>
