@@ -38,7 +38,8 @@ const TopStories = () => {
       for(let i = 0; i < response.data.results.length; i++){
         let singleObject = {
           title: response.data.results[i].title,
-          abstract: response.data.results[i].abstract
+          abstract: response.data.results[i].abstract,
+          url: response.data.results[i].url
         }
         arr.push(singleObject)
       }
@@ -91,7 +92,7 @@ const TopStories = () => {
     else{
       return(
         <>
-          {articles.map(item => <Article title={item.title} abstract={item.abstract}/>)}
+          {articles.map(item => <a href={item.url} target="_blank"><Article title={item.title} abstract={item.abstract}/></a>)}
         </>
       )
     }
@@ -107,7 +108,7 @@ const TopStories = () => {
       <Map/>
     </body>
     <footer>
-
+      News provided by The New York Times
     </footer>
     </>
   )

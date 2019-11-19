@@ -34,7 +34,8 @@ const Mostpopular = () => {
             for(let i = 0; i < response.data.results.length; i++){
                 let singleObject = {
                     title: response.data.results[i].title,
-                    abstract: response.data.results[i].abstract
+                    abstract: response.data.results[i].abstract,
+                    url: response.data.results[i].url
                 }
                 arr.push(singleObject)
             }
@@ -105,7 +106,7 @@ const Mostpopular = () => {
         else{
           return(
             <>
-              {populars.map(item => <Article title={item.title} abstract={item.abstract}/>)}
+              {populars.map(item => <a href={item.url} target="_blank"><Article title={item.title} abstract={item.abstract}/></a>)}
             </>
           )
         }
@@ -121,7 +122,7 @@ const Mostpopular = () => {
             <Map/>
           </body>
           <footer>
-
+            News provided by The New York Times
           </footer>
           </>
       )

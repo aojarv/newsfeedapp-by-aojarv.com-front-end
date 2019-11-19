@@ -12,7 +12,8 @@ const TimesWire = () => {
           for(let i = 0; i < response.data.results.length; i++){
             let singleObject = {
               title: response.data.results[i].title,
-              abstract: response.data.results[i].abstract
+              abstract: response.data.results[i].abstract,
+              url: response.data.results[i].url
             }
             arr.push(singleObject)
           }
@@ -40,7 +41,7 @@ const TimesWire = () => {
     else{
       return(
         <>
-          {news.map(item => <New title={item.title} abstract={item.abstract}/>)}
+          {news.map(item => <a href={item.url} target="_blank"><New title={item.title} abstract={item.abstract}/></a>)}
         </>
       )
     }
