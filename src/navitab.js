@@ -6,8 +6,21 @@ import TimesWire from './timeswire'
 import TopStories from './topstories'
 import Mostpopular from './mostpopular'
 
+const defaultPath = (path) => {
+  if(path === "/mostsharedandviewed"){
+    return 2
+  }
+  else if(path === "/searchbysection"){
+    return 1
+  }
+  else{
+    return 0
+  }
+}
+
 const Navitab = () => {
-  const [value, setValue] = useState(0)
+  const currentPath = window.location.pathname
+  const [value, setValue] = useState(defaultPath(currentPath))
   const handleChange = (newValue) => {
     setValue(newValue)
   }

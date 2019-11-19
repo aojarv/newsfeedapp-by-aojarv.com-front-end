@@ -122,7 +122,7 @@ const Mostpopular = () => {
             <Map/>
           </body>
           <footer>
-            News provided by The New York Times
+            <h1>News provided by The New York Times</h1>
           </footer>
           </>
       )
