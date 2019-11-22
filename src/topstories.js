@@ -34,13 +34,20 @@ const TopStories = () => {
     const URL = `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=xGsgXlF7e8OzGsfLXyAWazfAZBhG4IA3`
     Axios.get(URL).then(response => {
       const arr = []
-
-      for(let i = 0; i < response.data.results.length; i++){
-        let singleObject = {
-          title: response.data.results[i].title,
-          abstract: response.data.results[i].abstract,
-          url: response.data.results[i].url
-        }
+        for(let i = 0; i < response.data.results.length; i++){
+          let picture = ""
+          if(response.data.results[i].multimedia === null){
+            picture = ""
+          }
+          else{
+            picture = response.data.results[i].multimedia[1].url
+          }
+          let singleObject = {
+            title: response.data.results[i].title,
+            abstract: response.data.results[i].abstract,
+            url: response.data.results[i].url,
+            pic: picture
+          }
         arr.push(singleObject)
       }
       setArticles(arr)
@@ -72,15 +79,20 @@ const TopStories = () => {
     )
   }
 
-  const Article = (props) => {
+  const New = (props) => {
     return(
-      <div className="article">
-        <h1>
-          {props.title}
-        </h1>
-        <p>
-          {props.abstract}
-        </p>
+      <div className="new">
+        <div className="content">
+          <h1>
+            {props.title}
+          </h1>
+          <p>
+            {props.abstract}
+          </p> 
+        </div>
+        <div className="pic">
+          <img src={props.pic}></img>
+        </div>
       </div>
     )
   }
@@ -92,7 +104,7 @@ const TopStories = () => {
     else{
       return(
         <>
-          {articles.map(item => <a href={item.url} target="_blank"><Article title={item.title} abstract={item.abstract}/></a>)}
+          {articles.map(item => <a href={item.url} target="_blank"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
         </>
       )
     }

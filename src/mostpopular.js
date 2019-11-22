@@ -30,15 +30,22 @@ const Mostpopular = () => {
         const URL = `https://api.nytimes.com/svc/mostpopular/v2/${sorv}/${when}.json?api-key=xGsgXlF7e8OzGsfLXyAWazfAZBhG4IA3`
         Axios.get(URL).then(response => {
             const arr = []
-
-            for(let i = 0; i < response.data.results.length; i++){
+              for(let i = 0; i < response.data.results.length; i++){
+                let picture = ""
+                if(response.data.results[i].media[0]["media-metadata"][1].url === null){
+                  picture = ""
+                }
+                else{
+                  picture = response.data.results[i].media[0]["media-metadata"][1].url
+                }
                 let singleObject = {
-                    title: response.data.results[i].title,
-                    abstract: response.data.results[i].abstract,
-                    url: response.data.results[i].url
+                  title: response.data.results[i].title,
+                  abstract: response.data.results[i].abstract,
+                  url: response.data.results[i].url,
+                  pic: picture,
                 }
                 arr.push(singleObject)
-            }
+              }
             setPopulars(arr)
         })
     }
@@ -86,15 +93,20 @@ const Mostpopular = () => {
         )
     }
 
-    const Article = (props) => {
+    const New = (props) => {
         return(
-          <div className="article">
+          <div className="new">
+            <div className="content">
             <h1>
               {props.title}
             </h1>
             <p>
               {props.abstract}
-            </p>
+            </p> 
+            </div>
+            <div className="pic">
+              <img src={props.pic}></img>
+            </div> 
           </div>
         )
       }
@@ -106,7 +118,7 @@ const Mostpopular = () => {
         else{
           return(
             <>
-              {populars.map(item => <a href={item.url} target="_blank"><Article title={item.title} abstract={item.abstract}/></a>)}
+              {populars.map(item => <a href={item.url} target="_blank"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
             </>
           )
         }

@@ -10,11 +10,18 @@ const TimesWire = () => {
       Axios.get(URL).then(response => {
         const arr = []
           for(let i = 0; i < response.data.results.length; i++){
-
+            let picture = ""
+            if(response.data.results[i].multimedia === null){
+              picture = ""
+            }
+            else{
+              picture = response.data.results[i].multimedia[1].url
+            }
             let singleObject = {
               title: response.data.results[i].title,
               abstract: response.data.results[i].abstract,
-              url: response.data.results[i].url
+              url: response.data.results[i].url,
+              pic: picture
             }
             arr.push(singleObject)
           }
@@ -25,13 +32,17 @@ const TimesWire = () => {
   const New = (props) => {
       return(
           <div className="new">
-              <h1>
+            <div className="content">
+            <h1>
                   {props.title}
               </h1>
               <p>
                   {props.abstract}
-              </p>  
+              </p> 
+            </div>
+            <div className="pic">
               <img src={props.pic}></img>
+            </div> 
           </div>
       )
   }
@@ -57,7 +68,7 @@ const TimesWire = () => {
   return(
       <>
       <header>
-      <button onClick={getPic}>xd</button>
+        
       </header>
       <body>
         <Map/>
