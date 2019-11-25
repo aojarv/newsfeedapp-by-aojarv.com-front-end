@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 import nytimes from "./poweredby_nytimes_200c.png"
+import wantsomenews from "./wantsomenews.png"
 
 
 const TimesWire = () => {
@@ -68,14 +69,14 @@ const TimesWire = () => {
   return(
       <>
       <header>
-        
+        <img src={wantsomenews}/>
       </header>
       <body>
         <Map/>
       </body>
       <footer>
         <h1>
-          <img src={nytimes} alt="nytimes"/>
+        <a href="https://developer.nytimes.com/" target="_blank" rel="noopener noreferrer"><img src={nytimes} alt="nytimes"/></a>
         </h1>
       </footer>
       </>

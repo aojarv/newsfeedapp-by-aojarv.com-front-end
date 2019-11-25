@@ -3,6 +3,7 @@ import { FormControl, InputLabel, MenuItem, Select, Button } from '@material-ui/
 import { makeStyles } from '@material-ui/core/styles'
 import Axios from 'axios'
 import nytimes from "./poweredby_nytimes_200c.png"
+import wantsomenews from "./wantsomenews.png"
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -119,14 +120,14 @@ const TopStories = () => {
   return(
     <>
     <header>
-      
+    <img src={wantsomenews}/>
     </header>
     <body>
       <Whichsection/>
       <Map/>
     </body>
     <footer>
-    <img src={nytimes} alt="nytimes"/>
+    <a href="https://developer.nytimes.com/" target="_blank" rel="noopener noreferrer"><img src={nytimes} alt="nytimes"/></a>
     </footer>
     </>
   )
