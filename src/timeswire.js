@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
+import nytimes from "./poweredby_nytimes_200c.png"
 
 
 const TimesWire = () => {
@@ -11,17 +12,21 @@ const TimesWire = () => {
         const arr = []
           for(let i = 0; i < response.data.results.length; i++){
             let picture = ""
-            if(response.data.results[i].multimedia === null){
-              picture = ""
+            let cpr = ``
+            if(!!response.data.results[i].multimedia && response.data.results[i].multimedia.length > 0){
+              picture = response.data.results[i].multimedia[1].url
+              cpr = response.data.results[i].multimedia[1].copyright
             }
             else{
-              picture = response.data.results[i].multimedia[1].url
+              picture = ``
+              cpr = ``
             }
             let singleObject = {
               title: response.data.results[i].title,
               abstract: response.data.results[i].abstract,
               url: response.data.results[i].url,
-              pic: picture
+              pic: picture,
+              alt: cpr
             }
             arr.push(singleObject)
           }
@@ -41,7 +46,7 @@ const TimesWire = () => {
               </p> 
             </div>
             <div className="pic">
-              <img src={props.pic} alt=":D"></img>
+              <img src={props.pic} alt={props.alt}></img>
             </div> 
           </div>
       )
@@ -54,7 +59,7 @@ const TimesWire = () => {
     else{
       return(
         <>
-          {news.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
+          {news.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic} alt={item.alt}/></a>)}
         </>
       )
     }
@@ -70,7 +75,7 @@ const TimesWire = () => {
       </body>
       <footer>
         <h1>
-          News provided by The New York Times
+          <img src={nytimes} alt="nytimes"/>
         </h1>
       </footer>
       </>

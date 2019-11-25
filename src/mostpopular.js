@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FormControl, InputLabel, MenuItem, Select, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Axios from 'axios'
+import nytimes from "./poweredby_nytimes_200c.png"
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -32,17 +33,20 @@ const Mostpopular = () => {
             const arr = []
               for(let i = 0; i < response.data.results.length; i++){
                 let picture = ""
+                let cpr = ``
                 if(response.data.results[i].media[0]["media-metadata"][1].url === null){
                   picture = ""
                 }
                 else{
                   picture = response.data.results[i].media[0]["media-metadata"][1].url
+                  cpr = response.data.results[i].media[0]["media-metadata"][1].copyright
                 }
                 let singleObject = {
                   title: response.data.results[i].title,
                   abstract: response.data.results[i].abstract,
                   url: response.data.results[i].url,
                   pic: picture,
+                  alt: cpr
                 }
                 arr.push(singleObject)
               }
@@ -105,7 +109,7 @@ const Mostpopular = () => {
             </p> 
             </div>
             <div className="pic">
-              <img src={props.pic} alt=":D"></img>
+              <img src={props.pic} alt={props.alt}></img>
             </div> 
           </div>
         )
@@ -118,7 +122,7 @@ const Mostpopular = () => {
         else{
           return(
             <>
-              {populars.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
+              {populars.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic} alt={item.alt}/></a>)}
             </>
           )
         }
@@ -134,7 +138,7 @@ const Mostpopular = () => {
             <Map/>
           </body>
           <footer>
-            <h1>News provided by The New York Times</h1>
+            <img src={nytimes} alt="nytimes"/>
           </footer>
           </>
       )

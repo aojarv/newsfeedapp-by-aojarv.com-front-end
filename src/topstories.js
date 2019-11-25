@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FormControl, InputLabel, MenuItem, Select, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Axios from 'axios'
+import nytimes from "./poweredby_nytimes_200c.png"
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -36,18 +37,21 @@ const TopStories = () => {
       const arr = []
         for(let i = 0; i < response.data.results.length; i++){
           let picture = ``
+          let cpr = ``
           if(!!response.data.results[i].multimedia && response.data.results[i].multimedia.length > 0){
             picture = response.data.results[i].multimedia[1].url
-
+            cpr = response.data.results[i].multimedia[1].copyright
           }
           else{
             picture = ``
+            cpr = ``
           }
           let singleObject = {
             title: response.data.results[i].title,
             abstract: response.data.results[i].abstract,
             url: response.data.results[i].url,
-            pic: picture
+            pic: picture,
+            alt: cpr
           }
         arr.push(singleObject)
       }
@@ -93,7 +97,7 @@ const TopStories = () => {
           </p> 
         </div>
         <div className="pic">
-          <img src={props.pic} alt=":D"></img>
+          <img src={props.pic} alt={props.alt}></img>
         </div>
       </div>
     )
@@ -106,7 +110,7 @@ const TopStories = () => {
     else{
       return(
         <>
-          {articles.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
+          {articles.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic} alt={item.alt}/></a>)}
         </>
       )
     }
@@ -122,7 +126,7 @@ const TopStories = () => {
       <Map/>
     </body>
     <footer>
-    <h1>News provided by The New York Times</h1>
+    <img src={nytimes} alt="nytimes"/>
     </footer>
     </>
   )
