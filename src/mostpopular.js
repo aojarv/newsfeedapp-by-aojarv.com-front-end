@@ -105,7 +105,7 @@ const Mostpopular = () => {
             </p> 
             </div>
             <div className="pic">
-              <img src={props.pic}></img>
+              <img src={props.pic} alt=":D"></img>
             </div> 
           </div>
         )
@@ -118,7 +118,7 @@ const Mostpopular = () => {
         else{
           return(
             <>
-              {populars.map(item => <a href={item.url} target="_blank"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
+              {populars.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
             </>
           )
         }

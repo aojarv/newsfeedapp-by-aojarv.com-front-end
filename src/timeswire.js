@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
-import { isFulfilled } from 'q'
+
 
 const TimesWire = () => {
   const [news, setNews] = useState([])
@@ -41,7 +41,7 @@ const TimesWire = () => {
               </p> 
             </div>
             <div className="pic">
-              <img src={props.pic}></img>
+              <img src={props.pic} alt=":D"></img>
             </div> 
           </div>
       )
@@ -54,15 +54,10 @@ const TimesWire = () => {
     else{
       return(
         <>
-          {news.map(item => <a href={item.url} target="_blank"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
+          {news.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
         </>
       )
     }
-  }
-
-  const getPic = () => {
-    console.log(news.pic)
-    console.log(news)
   }
 
   return(

@@ -35,12 +35,13 @@ const TopStories = () => {
     Axios.get(URL).then(response => {
       const arr = []
         for(let i = 0; i < response.data.results.length; i++){
-          let picture = ""
-          if(response.data.results[i].multimedia === null){
-            picture = ""
+          let picture = ``
+          if(!!response.data.results[i].multimedia && response.data.results[i].multimedia.length > 0){
+            picture = response.data.results[i].multimedia[1].url
+
           }
           else{
-            picture = response.data.results[i].multimedia[1].url
+            picture = ``
           }
           let singleObject = {
             title: response.data.results[i].title,
@@ -50,6 +51,7 @@ const TopStories = () => {
           }
         arr.push(singleObject)
       }
+      console.log(URL)
       setArticles(arr)
     })
   }
@@ -91,7 +93,7 @@ const TopStories = () => {
           </p> 
         </div>
         <div className="pic">
-          <img src={props.pic}></img>
+          <img src={props.pic} alt=":D"></img>
         </div>
       </div>
     )
@@ -104,7 +106,7 @@ const TopStories = () => {
     else{
       return(
         <>
-          {articles.map(item => <a href={item.url} target="_blank"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
+          {articles.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic}/></a>)}
         </>
       )
     }
@@ -113,7 +115,7 @@ const TopStories = () => {
   return(
     <>
     <header>
-
+      
     </header>
     <body>
       <Whichsection/>
