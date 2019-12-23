@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { FormControl, InputLabel, MenuItem, Select, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import './index.css'
 import Axios from 'axios'
 import nytimes from "./poweredby_nytimes_200c.png"
 import wantsomenews from "./wantsomenews.png"
+import New from './new.js'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -33,30 +35,33 @@ const TopStories = () => {
   const classes = useStyles();
 
   const getData = () => {
-    const URL = `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=xGsgXlF7e8OzGsfLXyAWazfAZBhG4IA3`
+    const URL = `https://newsfeedapp-by-aojarv.com/topstories`
     Axios.get(URL).then(response => {
       const arr = []
-        for(let i = 0; i < response.data.results.length; i++){
-          let picture = ``
-          let cpr = ``
-          if(!!response.data.results[i].multimedia && response.data.results[i].multimedia.length > 0){
-            picture = response.data.results[i].multimedia[1].url
-            cpr = response.data.results[i].multimedia[1].copyright
-          }
-          else{
-            picture = ``
-            cpr = ``
+        for(let i = 0; i < response.data.length; i++){
+          let title = ""
+          let abstract = ""
+          let url = ""
+          let pic = ""
+          let alt = ""
+          if(response.data[i].section === section){
+            title = response.data[i].title
+            abstract = response.data[i].abstract
+            url = response.data[i].url
+            pic = response.data[i].pic
+            alt = response.data[i].alt
           }
           let singleObject = {
-            title: response.data.results[i].title,
-            abstract: response.data.results[i].abstract,
-            url: response.data.results[i].url,
-            pic: picture,
-            alt: cpr
+            title: title,
+            abstract: abstract,
+            url: url,
+            pic: pic,
+            alt: alt
           }
-        arr.push(singleObject)
+          if(!!title && title.length > 0){
+            arr.push(singleObject)
+          }
       }
-      console.log(URL)
       setArticles(arr)
     })
   }
@@ -86,24 +91,6 @@ const TopStories = () => {
     )
   }
 
-  const New = (props) => {
-    return(
-      <div className="new">
-        <div className="content">
-          <h1>
-            {props.title}
-          </h1>
-          <p>
-            {props.abstract}
-          </p> 
-        </div>
-        <div className="pic">
-          <img src={props.pic} alt={props.alt}></img>
-        </div>
-      </div>
-    )
-  }
-
   const Map = () => {
     if(articles.length === 0){
       return null
@@ -111,7 +98,7 @@ const TopStories = () => {
     else{
       return(
         <>
-          {articles.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic} alt={item.alt}/></a>)}
+          {articles.map(item => <New title={item.title} url={item.url} abstract={item.abstract} pic={item.pic} alt={item.alt}/>)}
         </>
       )
     }
@@ -120,7 +107,7 @@ const TopStories = () => {
   return(
     <>
     <header>
-    <img src={wantsomenews}/>
+    <div className="scale"><img src={wantsomenews}/></div>
     </header>
     <body>
       <Whichsection/>

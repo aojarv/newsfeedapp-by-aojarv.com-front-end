@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { FormControl, InputLabel, MenuItem, Select, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import './index.css'
 import Axios from 'axios'
 import nytimes from "./poweredby_nytimes_200c.png"
 import wantsomenews from "./wantsomenews.png"
+import New from './new.js'
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -29,31 +31,36 @@ const Mostpopular = () => {
     const classes = useStyles()
 
     const getData = () => {
-        const URL = `https://api.nytimes.com/svc/mostpopular/v2/${sorv}/${when}.json?api-key=xGsgXlF7e8OzGsfLXyAWazfAZBhG4IA3`
+        const URL = `https://newsfeedapp-by-aojarv.com/mostpopular`
         Axios.get(URL).then(response => {
             const arr = []
-              for(let i = 0; i < response.data.results.length; i++){
-                let picture = ""
-                let cpr = ``
-                if(response.data.results[i].media[0]["media-metadata"][1].url === null){
-                  picture = ""
-                }
-                else{
-                  picture = response.data.results[i].media[0]["media-metadata"][1].url
-                  cpr = response.data.results[i].media[0]["media-metadata"][1].copyright
-                }
-                let singleObject = {
-                  title: response.data.results[i].title,
-                  abstract: response.data.results[i].abstract,
-                  url: response.data.results[i].url,
-                  pic: picture,
-                  alt: cpr
-                }
+            for(let i = 0; i < response.data.length; i++){
+              let title = ""
+              let abstract = ""
+              let url = ""
+              let pic = ""
+              let alt = ""
+              if(response.data[i].sorv === sorv && response.data[i].wheen === when){
+                title = response.data[i].title
+                abstract = response.data[i].abstract
+                url = response.data[i].url
+                pic = response.data[i].pic
+                alt = ""
+              }
+              let singleObject = {
+                title: title,
+                abstract: abstract,
+                url: url,
+                pic: pic,
+                alt: alt
+              }
+              if(!!title && title.length > 0){
                 arr.push(singleObject)
               }
-            setPopulars(arr)
+          }
+          setPopulars(arr)
         })
-    }
+      }
 
     const handleSorvChange = event => {
         setSorv(event.target.value)
@@ -87,34 +94,16 @@ const Mostpopular = () => {
                             value={when}
                             onChange={handleWhenChange}
                             >
-                                <MenuItem value={1}>today</MenuItem>
-                                <MenuItem value={7}>last week</MenuItem>
-                                <MenuItem value={30}>last month</MenuItem>
+                                <MenuItem value={"1"}>today</MenuItem>
+                                <MenuItem value={"7"}>last week</MenuItem>
+                                <MenuItem value={"30"}>last month</MenuItem>
                             </Select>
                     </FormControl>
-                    <Button onClick={getData} variant="contained" className={classes.button}>go go))</Button>
+                    <Button onClick={getData} variant="contained" className={classes.button}>→</Button>
                 </p>
             </div>
         )
     }
-
-    const New = (props) => {
-        return(
-          <div className="new">
-            <div className="content">
-            <h1>
-              {props.title}
-            </h1>
-            <p>
-              {props.abstract}
-            </p> 
-            </div>
-            <div className="pic">
-              <img src={props.pic} alt={props.alt}></img>
-            </div> 
-          </div>
-        )
-      }
 
       const Map = () => {
         if(populars.length === 0){
@@ -123,7 +112,7 @@ const Mostpopular = () => {
         else{
           return(
             <>
-              {populars.map(item => <a href={item.url} target="_blank" rel="noopener noreferrer"><New title={item.title} abstract={item.abstract} pic={item.pic} alt={item.alt}/></a>)}
+              {populars.map(item => <New title={item.title} url={item.url} abstract={item.abstract} pic={item.pic} alt={item.alt}/>)}
             </>
           )
         }
@@ -132,7 +121,7 @@ const Mostpopular = () => {
       return(
           <>
           <header>
-          <img src={wantsomenews}/>
+          <div className="scale"><img src={wantsomenews}/></div>
           </header>
           <body>
             <SharedOrViewed/>
