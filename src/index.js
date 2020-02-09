@@ -1,15 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Navitab from './navitab'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom";
+import Navitab from "./navitab";
+import "./index.css";
 
 const App = () => {
-  return(
-    <Navitab/>
-  )
-}
+  return <Navitab />;
+};
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById("root"));
